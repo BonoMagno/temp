@@ -1,0 +1,23 @@
+#define Map_RNGTable(map_slot,encounter_type,map_type,map_id) "BYTE map_slot, encounter_type, map_type, map_id;"
+
+/*
+map_slot = The slot in which the map will be placed in the map order
+encounter_type = Determines wether the encounter is a Battle, an Event, or a Shop
+	0x0 = to be randomized
+	0x1 = always battle
+	0x2 = always event
+	0x3 = always shop
+	0x4 = always boss
+map_type = determines the map type for the map to be selected, affects the randomization when picking map id, randomized will avoid having duplicate map_types
+map_id = the 0xID to be used with the change map function.
+*/
+
+Map_RNGTable(0x1,0x1,0x0,0x0)
+Map_RNGTable(0x2,0x0,0x0,0x0)
+Map_RNGTable(0x3,0x0,0x0,0x0)
+Map_RNGTable(0x4,0x1,0x0,0x0)
+Map_RNGTable(0x5,0x0,0x0,0x0)
+Map_RNGTable(0x6,0x0,0x0,0x0)
+Map_RNGTable(0x7,0x0,0x0,0x0)
+Map_RNGTable(0x8,0x3,0x0,0x0)
+Map_RNGTable(0x9,0x4,0x0,0x0)
