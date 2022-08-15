@@ -12,6 +12,8 @@ map_type = determines the map type for the map to be selected, affects the rando
 map_id = the 0xID to be used with the change map function.
 */
 
+ALIGN 4
+Map_RNGTable:
 Map_RNGTable(0x1,0x1,0x0,0x0)
 Map_RNGTable(0x2,0x0,0x0,0x0)
 Map_RNGTable(0x3,0x0,0x0,0x0)
