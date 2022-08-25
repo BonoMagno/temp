@@ -1,25 +1,33 @@
-#define Map_RNGTable(map_slot,encounter_type,map_type,map_id) "BYTE map_slot, encounter_type, map_type, map_id;"
+#define FreeSpace 0x0;       //RAM address to write queue on.
+#define TutorialRunMaps 0x0; //ROM address where the premade tutorial run´s map list is located
 
-/*
-map_slot = The slot in which the map will be placed in the map order
-encounter_type = Determines wether the encounter is a Battle, an Event, or a Shop
-	0x0 = to be randomized
-	0x1 = always battle
-	0x2 = always event
-	0x3 = always shop
-	0x4 = always boss
-map_type = determines the map type for the map to be selected, affects the randomization when picking map id, randomized will avoid having duplicate map_types
-map_id = the 0xID to be used with the change map function.
-*/
+MapQueue_length = 8;                      //lenght of the map queue to write to RAM
+int MapOrder_queue[MapQueue_length - 1];  
+void readData();
+void writeData();
 
-ALIGN 4
-Map_RNGTable:
-Map_RNGTable(0x1,0x1,0x0,0x0)
-Map_RNGTable(0x2,0x0,0x0,0x0)
-Map_RNGTable(0x3,0x0,0x0,0x0)
-Map_RNGTable(0x4,0x1,0x0,0x0)
-Map_RNGTable(0x5,0x0,0x0,0x0)
-Map_RNGTable(0x6,0x0,0x0,0x0)
-Map_RNGTable(0x7,0x0,0x0,0x0)
-Map_RNGTable(0x8,0x3,0x0,0x0)
-Map_RNGTable(0x9,0x4,0x0,0x0)
+void main()
+{
+	readData();
+	writeData();
+}
+
+void readData() //reads the data located at the ROM address and stores its value to the list.
+{
+	int *p;
+	for(int i = 0; i <= MapQueue_length - 1; i++)
+	{
+		*p = (int *)TutorialRunMaps + i;
+		MapOrder_queue[i] = *p;
+	}
+}
+
+void writeData() //dumps the data in the list into the given RAM address
+{
+	int *d;
+	for(int i = 0; i <= MapQueue_length - 1; i++)
+	{
+		*d = (int *)FreeSpace + i; 
+		*d = MapOrder_queue[i];
+	}
+}
